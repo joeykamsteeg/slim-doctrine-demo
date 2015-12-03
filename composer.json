@@ -1,0 +1,21 @@
+{
+    "name": "psykosoldi3r/slimdoctrine",
+    "description": "Slim Doctrine demo",
+    "require": {
+        "slim/slim": "^2.6",
+        "doctrine/orm": "^2.5"
+    },
+    "authors": [
+        {
+            "name": "Joey kamsteeg",
+            "email": "joey_kamsteeg@live.nl"
+        }
+    ],
+    "autoload":{
+    	"psr-4":{
+    		"App\\":"src/App",
+    		"App\\Entity\\":"src/App/Entities",
+    		"Routing\\":"src/Routing"
+    	}
+    }
+}
