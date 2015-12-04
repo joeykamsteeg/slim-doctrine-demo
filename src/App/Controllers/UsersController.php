@@ -79,5 +79,17 @@
 
 			$this->getApp()->sendResponse( $this->convertUser( $user ) );
 		}
+
+		/**
+		 * @Route('/users/:id')
+		 * @Method('DELETE')
+		 * @Name('user.delete')
+		 */
+		public function deleteUserAction( $id ){
+			$user = $this->getApp()->getEntityManager()->find('App\Entities\User', $id );
+			$this->getApp()->getEntityManager()->remove( $user );
+			$this->getApp()->getEntityManager()->flush();
+			//$this->getApp()->sendResponse( get_class_methods( $user ) );
+		}
 	}
 ?>
