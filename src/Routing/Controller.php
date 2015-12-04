@@ -60,7 +60,11 @@ abstract class Controller {
      */
     protected function getRequestData( $value = null ){
         if( !is_null( $value ) ){
-            return $this->requestData[$value];
+            if( array_key_exists($value, $this->requestData ) ){
+                return $this->requestData[$value];
+            }
+
+            return '';
         }
         return $this->requestData;
     }
