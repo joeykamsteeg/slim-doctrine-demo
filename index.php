@@ -23,6 +23,8 @@
 		break;
 	}
 
+	var_dump( $config );
+
 	$app = new App( array(
 		'DB_DRIVER' => $config['DB_DRIVER'],
 		'DB_HOST' => $config['DB_HOST'],
