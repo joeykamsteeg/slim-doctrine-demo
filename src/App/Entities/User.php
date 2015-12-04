@@ -74,5 +74,9 @@ class User{
 	public function setEmail ( $email ){
 		$this->email = $email;
 	}
+
+	public function setPassword( $password ){
+		$this->password = hash('sha512', $password );
+	}
 }
 ?>

@@ -55,7 +55,25 @@
 			$user->setFirstname( $this->getRequestData('firstname') );
 			$user->setLastname( $this->getRequestData('lastname') );
 			$user->setEmail( $this->getRequestData('email') );
-			
+
+			$this->getApp()->getEntityManager()->persist( $user );
+			$this->getApp()->getEntityManager()->flush();
+
+			$this->getApp()->sendResponse( $this->convertUser( $user ) );
+		}
+
+		/**
+		 * @Route('/users')
+		 * @Method('POST')
+		 * @Name('user.new')
+		 */
+		public function postUserAction(){
+			$user = new User();
+			$user->setFirstname( $this->getRequestData('firstname') );
+			$user->setLastname( $this->getRequestData('lastname') );
+			$user->setEmail( $this->getRequestData('email') );
+			$user->setPassword( $this->getRequestData('password') );
+
 			$this->getApp()->getEntityManager()->persist( $user );
 			$this->getApp()->getEntityManager()->flush();
 
