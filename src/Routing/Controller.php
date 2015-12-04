@@ -58,7 +58,10 @@ abstract class Controller {
     /**
      * @return array
      */
-    protected function getRequestData(){
+    protected function getRequestData( $value = null ){
+        if( !is_null( $value ) ){
+            return $this->requestData[$value];
+        }
         return $this->requestData;
     }
 

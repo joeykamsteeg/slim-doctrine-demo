@@ -62,5 +62,17 @@ class User{
 	public function getEmail(){
 		return $this->email;
 	}
+
+	public function setFirstname( $firstname ){
+		$this->firstname = $firstname;
+	}
+
+	public function setLastname( $lastname ){
+		$this->lastname = $lastname;
+	}
+
+	public function setEmail ( $email ){
+		$this->email = $email;
+	}
 }
 ?>

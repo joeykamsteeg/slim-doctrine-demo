@@ -3,6 +3,7 @@
 	namespace App\Controllers;
 
 	use Routing\Controller;
+	use App\Entities\User;
 
 	class UsersController extends Controller {
 
@@ -41,6 +42,24 @@
 				'lastname' => $user->getLastname(),
 				'email' => $user->getEmail()
 			);
+		}
+
+		/**
+		 * @Route('/users/:id')
+		 * @Method('PUT')
+		 * @Name('user.update')
+		 */
+		public function putUserAction( $id ){
+			$user = $this->getApp()->getEntityManager()->find('App\Entities\User', $id );
+
+			$user->setFirstname( $this->getRequestData('firstname') );
+			$user->setLastname( $this->getRequestData('lastname') );
+			$user->setEmail( $this->getRequestData('email') );
+			
+			$this->getApp()->getEntityManager()->persist( $user );
+			$this->getApp()->getEntityManager()->flush();
+
+			$this->getApp()->sendResponse( $this->convertUser( $user ) );
 		}
 	}
 ?>
