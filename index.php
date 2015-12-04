@@ -4,9 +4,8 @@
 
 	require dirname(__FILE__)."/vendor/autoload.php";
 
-
 	$config = array ();
-	switch( $_SERVER['SERVER_ADDR'] ){
+	switch( $_SERVER['REMOTE_ADDR'] ){
 		case '::1':
 			$config['DB_DRIVER'] = 'pdo_mysql';
 			$config['DB_HOST'] = 'localhost';
