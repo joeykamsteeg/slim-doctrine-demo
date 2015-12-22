@@ -4,6 +4,7 @@
 
 	use Routing\Controller;
 	use App\Entities\User;
+	use App\Entities\Phonenumber;
 
 	class UsersController extends Controller {
 
@@ -40,7 +41,8 @@
 				'id' => $user->getId(),
 				'firstname' => $user->getFirstname(),
 				'lastname' => $user->getLastname(),
-				'email' => $user->getEmail()
+				'email' => $user->getEmail(),
+				'phonenumbers' => $user->getPhonenumbers()->toArray()
 			);
 		}
 
@@ -89,7 +91,42 @@
 			$user = $this->getApp()->getEntityManager()->find('App\Entities\User', $id );
 			$this->getApp()->getEntityManager()->remove( $user );
 			$this->getApp()->getEntityManager()->flush();
-			//$this->getApp()->sendResponse( get_class_methods( $user ) );
+		}
+
+		/**
+		 * @Route('/users/:id/phonenumbers')
+		 * @Method('POST')
+		 * @Name('user.post.phonenumbers')
+		 */
+		public function postPhonenumberUserAction( $id ){
+			$em = $this->getApp()->getEntityManager();
+
+			$user = $em->find('App\Entities\User', $id );
+			$phonenumber = $em->find('App\Entities\Phonenumber', $this->getRequestData('phonenumber_id') );
+			$user->getPhonenumbers()->add( $phonenumber );
+
+			$em->flush();
+
+			$this->getApp()->sendResponse( $this->convertUser( $user ) );
+		}
+
+		/**
+		 * @Route('/users/:id/phonenumbers/:phonenumber_id')
+		 * @Method('DELETE')
+		 * @Name('user.delete.phonenumber')
+		 */
+		public function deletePhoneNumberUserAction( $id, $phonenumber_id ){
+			$em = $this->getApp()->getEntityManager();
+
+			$user = $em->find('App\Entities\User', $id );
+			$phonenumber = $em->find('App\Entities\Phonenumber', $phonenumber_id );
+
+			try{
+				$user->getPhonenumbers()->removeElement( $phonenumber );
+				$em->flush();
+			}catch( Doctrine\DBAL\Exception\UniqueConstraintViolationException $ex ){
+
+			}
 		}
 	}
 ?>

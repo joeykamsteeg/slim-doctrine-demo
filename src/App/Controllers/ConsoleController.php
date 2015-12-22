@@ -31,7 +31,8 @@
 			$tool = new SchemaTool( $entity );
 
 			$tool->updateSchema( array (
-				$entity->getClassMetadata( 'App\\Entities\\User' )
+				$entity->getClassMetadata( 'App\\Entities\\User' ),
+				$entity->getClassMetadata( 'App\\Entities\\Phonenumber' )
 			) );
 		}
 

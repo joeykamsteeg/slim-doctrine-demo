@@ -3,6 +3,7 @@
 namespace App\Entities;
 
 use Doctrine\ORM\Mapping;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @Entity
@@ -44,6 +45,19 @@ class User{
 	 */
 	protected $password;
 
+	/**
+     * @ManyToMany(targetEntity="Phonenumber")
+     * @JoinTable(name="users_phonenumbers",
+     *      joinColumns={@JoinColumn(name="user_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@JoinColumn(name="phonenumber_id", referencedColumnName="id", unique=true)}
+     *      )
+     */
+	protected $phonenumbers;
+
+	public function __construct(){
+		//$this->phonenumbers = new ArrayCollection();
+	}
+
 	public function getId(){
 		return $this->id;
 	}
@@ -77,6 +91,10 @@ class User{
 
 	public function setPassword( $password ){
 		$this->password = hash('sha512', $password );
+	}
+
+	public function getPhonenumbers(){
+		return $this->phonenumbers;
 	}
 }
 ?>
